@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using _23DH112807_MyStore.Models;
+using _23DH112807_MyStore.Models.ViewModel;
 
 namespace _23DH112807_MyStore.Areas.Admin.Controllers
 {
@@ -15,11 +16,33 @@ namespace _23DH112807_MyStore.Areas.Admin.Controllers
         private MyStoreEntities db = new MyStoreEntities();
 
         // GET: Admin/Products
-        public ActionResult Index()
+        public ActionResult Index(string searchTerm)
         {
-            var products = db.Products.Include(p => p.Category);
-            return View(products.ToList());
+            var model = new ProductSearchVM();
+            var products = db.Products.AsQueryable();
+           
+                if (!string.IsNullOrEmpty(searchTerm))
+
+            { //Tìm kiếm sản phẩm dựa trên từ khóa
+                products = products.Where(p =>
+                        p.ProductName.Contains(searchTerm) ||
+                        p.ProductDescription.Contains(searchTerm) ||
+                        p.Category.CategoryName.Contains(searchTerm));
+                    }
+            model.Products = products.ToList());
+            return View(model);
         }
+             //Tìm kiếm sản phẩm dựa trên giá tối thiểu
+             if (minPrice.HasValue)
+            {
+                products = products.Where(p => p.ProductPrice >= minPrice.Value);
+            }
+             //Tìm kiếm sản phẩm dựa trên giá tối đa
+             if (maxPrice.HasValue)
+            {
+                products=products.Where(p=>p.ProductPrice <= maxPrice.Value);
+            }
+            
 
         // GET: Admin/Products/Details/5
         public ActionResult Details(int? id)
@@ -49,7 +72,7 @@ namespace _23DH112807_MyStore.Areas.Admin.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ProductID,CategoryID,ProductName,ProductPrice,ProductImage,ProductDescription")] Product product)
-        {
+        { 
             if (ModelState.IsValid)
             {
                 db.Products.Add(product);

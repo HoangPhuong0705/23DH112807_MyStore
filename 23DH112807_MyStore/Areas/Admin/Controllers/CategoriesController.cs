@@ -27,12 +27,12 @@ namespace _23DH112807_MyStore.Areas.Admin.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest); //mã lỗi 400:thiếu giá trị truyền vào
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest); //mã lỗi 400: thiếu giá trị truyền vào
             }
             Category category = db.Categories.Find(id);
             if (category == null) //không tìm thấy bản ghi
             {
-                return HttpNotFound(); //mã lỗi 404
+                return HttpNotFound(); //tương đương mã lỗi 404
             }
             return View(category);
         }

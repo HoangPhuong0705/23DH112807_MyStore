@@ -5,54 +5,47 @@
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h2>Index</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
+@*fomat cho ảnh *@
+<head>
+    <style>
+        img{
+            height:150px;
+            max-width:200px;
+        }
+    </style>
+</head>
+
+<h2 class="bg-success">DANH SÁCH SẢN PHẨM</h2>
+
+
+<table class="table bg-info col-md-10 container-fluid">    @*chức năng col-md-x để làm cho bố cục từng phần không bị xen lấn lẫn nhau*@
     <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.ProductName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ProductPrice)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ProductImage)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ProductDescription)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Category.CategoryName)
-        </th>
-        <th></th>
+        <th class="bg-success col-md-2">Hình ảnh</th>
+        <th class="bg-success col-md-2">Tên sản phẩm</th>
+        <th class="bg-success col-md-2"> Đơn giá</th>
+        <th class="bg-success col-md-2">Danh mục </th>
+        <th class="bg-success col-md-2"></th>  @*cái dòng này dành cho cái phần chỉnh sửa chi tiết với xóa dưới thanh danh sách sản phẩm*@
     </tr>
-
-@foreach (var item in Model) {
+@*lưu ý chỗ này ở trên nó ra sao ở dưới xếp y vậy*@
+@foreach (var item in Model)
+{
     <tr>
+        <td> <img src=" @Html.DisplayFor(modelItem => item.ProductImage)" /> </td>
+        <td> @Html.DisplayFor(modelItem => item.ProductName)</td>
+        <td> @Html.DisplayFor(modelItem => item.ProductPrice)</td>
+        <td> @Html.DisplayFor(modelItem => item.Category.CategoryName)</td>
         <td>
-            @Html.DisplayFor(modelItem => item.ProductName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ProductPrice)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ProductImage)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ProductDescription)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Category.CategoryName)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ProductID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ProductID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ProductID })
+            @Html.ActionLink("Chỉnh sửa", "Edit", new { id = item.ProductID }, new { @class = "btn btn-primary" })
+            @Html.ActionLink("Chi tiết", "Details", new { id = item.ProductID }, new { @class = "btn btn-primary" })
+            @Html.ActionLink("Xóa", "Delete", new { id = item.ProductID }, new { @class = "btn btn-primary" })
         </td>
     </tr>
 }
 
 </table>
+<div class="dl-horizontal">
+    <div align="right" class="col-md-11">
+        @Html.ActionLink("Thêm mới ", "Create", null, new { @class = "btn btn-primary" })
+    </div>
+</div>

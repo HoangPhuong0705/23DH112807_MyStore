@@ -173,6 +173,7 @@
     <Compile Include="Models\User.cs">
       <DependentUpon>MyStoreModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ViewModel\ProductSearchVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -232,6 +233,10 @@
     <Content Include="Areas\Admin\Views\Categories\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Categories\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Categories\PartialView_CreateEditCategory.cshtml" />
+    <Content Include="Areas\Admin\Views\Products\PartialView_CreateEditProducts.cshtml" />
+    <Content Include="Areas\Admin\Views\Products\PartialView_DetailProduct.cshtml" />
+    <Content Include="Areas\Admin\Views\Products\Index1.cshtml" />
+    <Content Include="Areas\Admin\Views\Products\ProductListPV.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
